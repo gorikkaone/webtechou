@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block content %}
+    <h2>{{ child.name }} の学習計画</h2>
+    <table border="1">
+        <tr>
+            <th>教科</th>
+            <th>学習内容</th>
+            <th>分量</th>
+            <th>予想時間</th>
+            <th>優先度</th>
+            <th>完了</th>
+            <th>操作</th>
+        </tr>
+        {% for plan in study_plans %}
+        <tr>
+            <td>{{ plan.subject.name }}</td>
+            <td>{{ plan.study_content }}</td>
+            <td>{{ plan.quantity }}</td>
+            <td>{{ plan.estimated_time }}</td>
+            <td>{{ plan.priority }}</td>
+            <td>{% if plan.is_completed %}✅{% else %}❌{% endif %}</td>
+            <td>
+              <a href="{% url 'study_plan_edit' plan.id %}">編集</a> |
+              <a href="{% url 'study_plan_copy' plan.pk %}">コピー</a>|
+              <a href="{% url 'study_plan_delete' plan.id %}" onclick="return confirm('本当に削除しますか？');">削除</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <p><a href="{% url 'study_plan_form' %}?child={{ child.id }}">新規追加</a></p>
+
+     <p><a href="{% url 'child_detail' child.id %}">{{ child.name }}さんのページに戻る</a></p>
+{% endblock %}

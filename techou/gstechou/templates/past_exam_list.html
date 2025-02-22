@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% block content %}
+<style>
+  table { width: 100%; border-collapse: collapse; }
+  th, td { border: 1px solid black; padding: 8px; text-align: center; }
+  th { background-color: #f2f2f2; }
+  td.remarks { max-width: 300px; word-wrap: break-word; white-space: pre-wrap; }
+</style>
+
+<h2>{{ child.name }}さんの過去問データ</h2>
+
+<table>
+  <tr>
+    <th>学校名</th>
+    <th>年度</th>
+    <th>回数</th>
+    <th>入試の分類</th>
+    <th>算数</th>
+    <th>国語</th>
+    <th>理科</th>
+    <th>社会</th>
+    <th>合計点</th>
+    <th>特記事項</th>
+    <th>アクション</th>
+  </tr>
+  {% for exam in past_exams %}
+  <tr>
+    <td>{{ exam.school.school.name }}</td>
+    <td>{{ exam.year }}</td>
+    <td>{{ exam.attempt }}</td>
+    <td>{{ exam.exam_type }}</td>
+    <td>{{ exam.math_score|default:"-" }}</td>
+    <td>{{ exam.japanese_score|default:"-" }}</td>
+    <td>{{ exam.science_score|default:"-" }}</td>
+    <td>{{ exam.social_studies_score|default:"-" }}</td>
+    <td>{{ exam.math_score|add:exam.japanese_score|add:exam.science_score|add:exam.social_studies_score }}</td>
+    <td class="remarks">{{ exam.remarks|default:"-" }}</td>
+    <td>
+      <a href="{% url 'past_exam_edit' exam.id %}">編集</a> |
+      <a href="{% url 'past_exam_copy' exam.id %}">コピー</a> |
+      <a href="{% url 'past_exam_delete' exam.id %}" onclick="return confirm('本当に削除しますか？');">削除</a>
+    </td>
+  </tr>
+  {% empty %}
+  <tr>
+    <td colspan="11">過去問データがありません</td>
+  </tr>
+  {% endfor %}
+</table>
+
+<a href="{% url 'past_exam_add' child.id %}">過去問を追加</a><br>
+<a href="{% url 'child_detail' child.id %}">戻る</a>
+
+{% endblock %}

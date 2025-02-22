@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>志望校を編集</h2>
+
+<!-- 注意書きを追加 -->
+<p style="color: red; font-size: small;">
+  ※ 志望校自体を変更する場合は、いったん削除してから再度追加してください。
+</p>
+
+<form method="post">
+    {% csrf_token %}
+
+    <!-- 学校名を表示のみ（変更不可） -->
+    <p>
+      <label>学校名</label>
+      <strong>{{ shiboukou.school.name }}</strong>
+    </p>
+
+    <p>
+      <label for="{{ form.rank.id_for_label }}">{{ form.rank.label }}</label>
+      {{ form.rank }}
+    </p>
+
+    <button type="submit">保存</button>
+</form>
+
+<a href="{% url 'child_detail' shiboukou.child.id %}">戻る</a>
+{% endblock %}

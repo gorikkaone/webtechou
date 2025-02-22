@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>{{ child.name }}さんの過去問登録</h2>
+
+<form method="POST">
+  {% csrf_token %}
+  <p>
+      <label for="{{ form.school.id_for_label }}">{{ form.school.label }}:</label>
+      {{ form.school }}
+  </p>
+  <p>
+      <label for="{{ form.year.id_for_label }}">{{ form.year.label }}:</label>
+      {{ form.year }}
+  </p>
+  <p>
+      <label for="{{ form.attempt.id_for_label }}">{{ form.attempt.label }}:</label>
+      {{ form.attempt }}
+  </p>
+  <p>
+      <label for="{{ form.exam_type.id_for_label }}">{{ form.exam_type.label }}:</label>
+      {{ form.exam_type }}
+  </p>
+  <p>
+      <label for="{{ form.math_score.id_for_label }}">{{ form.math_score.label }}:</label>
+      {{ form.math_score }}
+  </p>
+  <p>
+      <label for="{{ form.japanese_score.id_for_label }}">{{ form.japanese_score.label }}:</label>
+      {{ form.japanese_score }}
+  </p>
+  <p>
+      <label for="{{ form.science_score.id_for_label }}">{{ form.science_score.label }}:</label>
+      {{ form.science_score }}
+  </p>
+  <p>
+      <label for="{{ form.social_studies_score.id_for_label }}">{{ form.social_studies_score.label }}:</label>
+      {{ form.social_studies_score }}
+  </p>
+  <p>
+      <label for="{{ form.remarks.id_for_label }}">{{ form.remarks.label }}:</label>
+      {{ form.remarks }}
+  </p>
+  <button type="submit">保存</button>
+</form>
+
+<a href="{% url 'past_exam_list' child.id %}">戻る</a>
+{% endblock %}

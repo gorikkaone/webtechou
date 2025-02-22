@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>{{ child.name }}の受験スケジュール</h2>
+<a href="{% url 'exam_schedule_create' child.id %}">新しいスケジュールを追加</a>
+<table>
+    <tr>
+        <th>受験日</th>
+        <th>午前/午後</th>
+        <th>試験名</th>
+        <th>学校名</th>
+        <th>教科数</th>
+        <th>可能性</th>
+    </tr>
+    {% for schedule in schedules %}
+    <tr>
+        <td>{{ schedule.exam_date }}</td>
+        <td>{{ schedule.session }}</td>
+        <td>{{ schedule.exam_name }}</td>
+        <td>{{ schedule.school.name }}</td>
+        <td>{{ schedule.subject_count }}</td>
+        <td>{{ schedule.probability_level }}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

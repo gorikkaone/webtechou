@@ -1,0 +1,17 @@
+<h2>{{ request.user.parent_name }}さんのマイページ</h2>
+
+<h3>子ども一覧</h3>
+<ul>
+    {% for child in children %}
+        <li>
+            <a href="{% url 'child_detail' child.id %}">{{ child.name }}</a>（{{ child.entrance_year }}年受験）
+        </li>
+    {% empty %}
+        <li>子どもが登録されていません。</li>
+    {% endfor %}
+</ul>
+
+<a href="{% url 'register_child' %}">新しい子どもを登録する</a>
+
+<br/>
+<a href="{% url 'logout' %}">ログアウト</a>

@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>学習計画の削除</h2>
+
+<p>本当にこの学習計画を削除しますか？</p>
+
+<ul>
+    <li><strong>科目:</strong> {{ study_plan.subject.name }}</li>
+    <li><strong>内容:</strong> {{ study_plan.study_content }}</li>
+    <li><strong>分量:</strong> {{ study_plan.quantity }}</li>
+    <li><strong>予想時間:</strong> {{ study_plan.estimated_time }}</li>
+    <li><strong>優先度:</strong> {{ study_plan.priority }}</li>
+</ul>
+
+<form method="POST">
+    {% csrf_token %}
+    <button type="submit">削除する</button>
+</form>
+
+<a href="{% url 'study_plan_form' %}">キャンセル</a>
+{% endblock %}

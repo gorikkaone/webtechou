@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>{{ child.name }}の模試・試験記録</h2>
+<a href="{% url 'exam_record_create' child.id %}">新しい記録を追加</a>
+<table>
+    <tr>
+        <th>試験名</th>
+        <th>受験日</th>
+        <th>合計スコア</th>
+        <th>偏差値</th>
+        <th>第1志望</th>
+        <th>第2志望</th>
+    </tr>
+    {% for record in records %}
+    <tr>
+        <td>{{ record.exam_name }}</td>
+        <td>{{ record.exam_date }}</td>
+        <td>{{ record.total_score }}</td>
+        <td>{{ record.total_deviation }}</td>
+        <td>{{ record.school1 }}</td>
+        <td>{{ record.school2 }}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

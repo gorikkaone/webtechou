@@ -1,0 +1,59 @@
+<!-- select2 CSS -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
+
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- select2 JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+
+<h2>{{ child.name }}さんのページ</h2>
+
+
+
+<h2>志望校一覧</h2>
+<table>
+    <tr>
+        <th>学校名</th>
+        <th>ランク</th>
+        <th>操作</th>
+    </tr>
+    {% for shiboukou in shiboukous %}
+    <tr>
+        <td>{{ shiboukou.school.name }}</td>
+        <td>{{ shiboukou.rank }}</td>
+        <td>
+            <a href="{% url 'edit_shiboukou' shiboukou.id %}">編集</a>
+            <a href="{% url 'delete_shiboukou' shiboukou.id %}">削除</a>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+
+<h3>新規志望校追加</h3>
+<form method="POST" action="{% url 'add_shiboukou' child.id %}">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">追加</button>
+</form>
+
+<script>
+    $(document).ready(function() {
+        $('.school-select').select2({
+            placeholder: "学校名を入力して検索",
+            allowClear: true,
+            width: '100%'
+        });
+    });
+</script>
+
+<h3>学習関連のリンク</h3>
+<ul>
+  <!-- 既存のコードの適切な場所に追加 -->
+    <li><a href="{% url 'study_plan_list' child.id %}">{{ child.name }}の学習計画一覧を見る</a></li>
+　  <li><a href="{% url 'study_plan_form' %}?child={{ child.id }}">学習計画の登録・編集</a></li>
+    <li><a href="{% url 'past_exam_list' child.id %}">📖 過去問記録を見る</a></li>
+</ul>
+
+
+<a href="{% url 'mypage' %}">マイページに戻る</a>

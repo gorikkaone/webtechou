@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Googleカレンダーのイベント一覧</title>
+</head>
+<body>
+    <h1>イベント一覧</h1>
+
+    <!-- デバッグ用に渡されたデータを表示 -->
+    <pre>
+        {{ events|pprint }}
+    </pre>
+
+    {% if events %}
+        <ul>
+            {% for event in events %}
+                <li>
+                    <strong>イベント名:</strong> {{ event.summary|default:"(タイトルなし)" }}<br>
+                    <strong>開始日時:</strong> {{ event.start }}<br>
+                    <strong>終了日時:</strong> {{ event.end }}<br>
+                    <a href="{{ event.htmlLink }}" target="_blank">Googleカレンダーで表示</a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>イベントが見つかりませんでした。</p>
+    {% endif %}
+</body>
+</html>

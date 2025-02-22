@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>{{ child.name }}の模試・試験記録登録</h2>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">登録</button>
+</form>
+<a href="{% url 'exam_record_list' child.id %}">戻る</a>
+{% endblock %}

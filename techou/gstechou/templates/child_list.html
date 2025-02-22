@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>登録した子ども一覧</h2>
+
+<ul>
+    {% for child in children %}
+        <li>
+            <strong>{{ child.name }}</strong>（{{ child.entrance_year }}年受験）<br>
+            <strong>志望校：</strong>
+            {% with shiboukous=child.shiboukou_list.all %}
+                {% if shiboukous %}
+                    {% for shiboukou in shiboukous %}
+                        {{ shiboukou.school.name }}{% if not forloop.last %}, {% endif %}
+                    {% endfor %}
+                {% else %}
+                    志望校未登録
+                {% endif %}
+            {% endwith %}
+            <br>
+            - <a href="{% url 'edit_child' child.id %}">編集</a>
+            - <a href="{% url 'delete_child' child.id %}">削除</a>
+        </li>
+        <hr>
+    {% empty %}
+        <li>まだ子どもが登録されていません。</li>
+    {% endfor %}
+</ul>
+
+<a href="{% url 'register_child' %}">子どもを追加登録する</a>
+
+{% endblock %}

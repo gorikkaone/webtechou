@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>学習計画を編集</h2>
+
+<form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">保存</button>
+</form>
+
+<a href="{% url 'study_plan_list' study_plan.child.id %}">戻る</a>
+
+{% endblock %}

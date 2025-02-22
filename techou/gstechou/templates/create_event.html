@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>Googleカレンダーにイベントを作成</title>
+</head>
+<body>
+    <h1>イベント作成</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">イベントを作成</button>
+    </form>
+</body>
+</html>

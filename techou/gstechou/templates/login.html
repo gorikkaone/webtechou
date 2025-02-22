@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>ログイン</h2>
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">ログイン</button>
+</form
+
+<!-- Googleログインボタン（直接リンク版） -->
+<a href="/accounts/login/google-oauth2/">Googleでログイン</a>
+{% endblock %}

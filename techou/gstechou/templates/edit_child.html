@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>子どもの情報を編集</h2>
+
+<form method="post">
+    {% csrf_token %}
+
+    <p>
+        <label for="id_name">{{ form.name.label }}</label><br>
+        {{ form.name }}
+    </p>
+    <p>
+        <label for="id_entrance_year">{{ form.entrance_year.label }}</label><br>
+        {{ form.entrance_year }}
+    </p>
+    <p>
+        <label for="id_google_calendar_id">{{ form.google_calendar_id.label }}</label><br>
+        {{ form.google_calendar_id }}
+    </p>
+    <p>
+        <label for="id_shiboukou_schools">{{ form.shiboukou_schools.label }}</label><br>
+        <select name="{{ form.shiboukou_schools.name }}" class="school-select" multiple="multiple">
+            {% for school in form.shiboukou_schools.field.queryset %}
+                <option value="{{ school.pk }}" {% if school in form.shiboukou_schools.value %}selected{% endif %}>
+                    {{ school.name }}
+                </option>
+            {% endfor %}
+        </select>
+    </p>
+
+    <button type="submit">保存</button>
+</form>
+
+<!-- Select2の読み込み -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+
+<script>
+$(document).ready(function() {
+    $('.school-select').select2({
+        placeholder: "志望校を検索して選択",
+        allowClear: true
+    });
+});
+</script>
+
+{% endblock %}

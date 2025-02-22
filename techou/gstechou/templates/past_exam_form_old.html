@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>過去問データを登録</h2>
+<form method="POST">
+    {% csrf_token %}
+
+    <label for="id_school_name">中学校名:</label>
+    {{ form.school_name }}
+    <br>
+
+    <label for="id_year">年度:</label>
+    {{ form.year }}
+    <br>
+
+    <label for="id_attempt">回数:</label>
+    {{ form.attempt }}
+    <br>
+
+    <label for="id_exam_type">入試の分類:</label>  <!-- 🔹 試験の種類を追加 -->
+    {{ form.exam_type }}
+    <br>
+
+    <label for="id_math_score">算数:</label>
+    {{ form.math_score }}
+    <br>
+
+    <label for="id_japanese_score">国語:</label>
+    {{ form.japanese_score }}
+    <br>
+
+    <label for="id_science_score">理科:</label>
+    {{ form.science_score }}
+    <br>
+
+    <label for="id_social_studies_score">社会:</label>
+    {{ form.social_studies_score }}
+    <br>
+
+    <label for="id_remarks">特記事項:</label>
+    {{ form.remarks }}
+    <br>
+
+    <button type="submit">登録</button>
+</form>
+<a href="{% url 'past_exam_list' %}">一覧に戻る</a>
+{% endblock %}
